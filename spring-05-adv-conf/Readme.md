@@ -9,10 +9,12 @@
 * Книга(Название, ссылка на автора, ссылка на жанр)
 ## Возможности
 Функционал приложения позволяет: 
+ 
 * Добавить книгу.
 ```
 shell> add <book name> <authorId> <genreId> 
 ```
+
 * Обновить книгу.
 ```
 shell> update <bookId> <book name> <authorId> <genreId> 
