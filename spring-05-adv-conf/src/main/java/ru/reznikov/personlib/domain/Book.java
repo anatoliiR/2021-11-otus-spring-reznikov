@@ -1,8 +1,10 @@
 package ru.reznikov.personlib.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Data
 public class Book {
@@ -12,10 +14,5 @@ public class Book {
     private final Genre genre;
 
 
-    public Book(long id, String name, Author author, Genre genre) {
-        setId(id);
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
-    }
+
 }

@@ -1,5 +1,6 @@
 package ru.reznikov.personlib.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,17 +16,12 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class AuthorDaoJdbc implements AuthorDao {
 
-    private final JdbcOperations jdbc;
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
-    public AuthorDaoJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations) {
-        // Это просто оставили, чтобы не переписывать код
-        // В идеале всё должно быть на NamedParameterJdbcOperations
-        this.jdbc = namedParameterJdbcOperations.getJdbcOperations();
-        this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-    }
+
 
 
     @Override
@@ -43,7 +39,7 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public List<Author> getAll() {
-        return jdbc.query("select * from AUTHOR", new AuthorMapper());
+        return namedParameterJdbcOperations.query("select * from AUTHOR", new AuthorMapper());
     }
 
 

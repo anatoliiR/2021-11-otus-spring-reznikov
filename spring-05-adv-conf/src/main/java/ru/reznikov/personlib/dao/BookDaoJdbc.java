@@ -1,5 +1,6 @@
 package ru.reznikov.personlib.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,17 +23,11 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class BookDaoJdbc implements BookDao {
 
-    private final JdbcOperations jdbc;
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
-    public BookDaoJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations) {
-        // Это просто оставили, чтобы не переписывать код
-        // В идеале всё должно быть на NamedParameterJdbcOperations
-        this.jdbc = namedParameterJdbcOperations.getJdbcOperations();
-        this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-    }
 
 
     @Override
@@ -89,7 +84,7 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        return jdbc.query("select b.`id` as id,  b.`name` as name,b.`author_id` as author_id ,b.`genre_id` as genre_id, " +
+        return namedParameterJdbcOperations.query("select b.`id` as id,  b.`name` as name,b.`author_id` as author_id ,b.`genre_id` as genre_id, " +
                 "a.name as author_name," +
                 "g.name as genre_name from BOOK b " +
                 "left join author a on(b.author_id=a.id) " +
